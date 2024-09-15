@@ -10,29 +10,65 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 library("seasonal") #Arima X13-Seats
 library("mFilter") #Filtro HP
 ```
-```{r}
-available_series(language = c("en", "br"))
-```
-```{r}
-PIB = ipeadata("BM12_PIB12",language = "br")
-PIB <- data.frame(data = PIB$date, valor = PIB$value)
-ts_do_PIB <- ts(PIB$valor,start = c(1990,1), frequency = 12)
-decomp <- decompose(ts_do_PIB)
-PIB["valor sem saz"] = ts_do_PIB - decomp$seasonal
-```
 
 ```{r}
-plot(PIB$data,PIB$valor,"l", xlab = "ano", ylab = "valor do gas")
-lines(PIB$data,PIB$`valor sem saz`,"l", xlab = "ano", ylab = "valor do gas", col = "blue")
-
+ts_do_trab <- ts(UNRATENSA$UNRATENSA,start = c(2010,1), frequency = 12)
+decomp_trab <- decompose(ts_do_trab)
+UNRATENSA["UNRATENSA sem saz"] = ts_do_trab - decomp_trab$seasonal
 ```
 ```{r}
-modelo_sazonal = seas(ts_do_PIB)
-plot(modelo_sazonal)
-
-air_x13 = predict(modelo_sazonal)
-PIB["valor arima x13"] <- air_x13
+plot(UNRATENSA$DATE,UNRATENSA$UNRATENSA,"l", xlab = "data", ylab = "taxa desemprego EUA")
+lines(UNRATENSA$DATE,UNRATENSA$`UNRATENSA sem saz`,"l", xlab = "data", ylab = "Taxa desemprego EUA", col = "blue")
 ```
+```{r}
+modelo_sazonaltrab = seas(ts_do_trab)
+plot(modelo_sazonaltrab)
+
+arima_x13trab = predict(modelo_sazonaltrab)
+UNRATENSA["UNRATENSA arima x13"] <- arima_x13trab
+```
+Para essa base de dados de desemprego nos Estados Unidos parece haver sim uma sazonalidade anual.
+
+
+Questão 2
+
+```{r}
+#Filtro HP
+filtradotrab = hpfilter(log(arima_x13trab),type = "lambda")
+
+plot(filtradotrab$trend - log(arima_x13trab), col='red')
+```
+```{r}
+plot(log(arima_x13trab), col='red')
+lines(filtradotrab$trend,col='blue')
+```
+
+
+A série temporal como visto no gráfico acima também parece apresentar ciclos e ela parece apresentar uma tendencia linear se comparado com o gráfico do arima x13.
+
+Questão 3
+
+```{r}
+#Proposta de Hamilton
+base = cbind(arima_x13trab,do.call(cbind, lapply(-24-0:3, function(x) lag(arima_x13trab, x))))
+colnames(base) = c('l_air', paste('L',0:3,sep=''))
+
+#Passando para log (modelo multiplicativo!)
+base = base
+
+model = lm(l_air~., data = base)
+
+base = cbind(base, 'hamilton_cycle' =base[,1]- predict(model, base))
+
+plot(base[,"hamilton_cycle"], col = 'blue')
+abline(h=0)
+```
+O filtro HP nessa situação se assemelha bastante com o Hamilton, só que o Hamilton corta os primeiros dois anos da amostra.
+
+
+
+Segunda base de dados
+
 ```{r}
 ts_do_M2 <- ts(M2NS$M2NS,start = c(2019,7), frequency = 12)
 decomp_M2 <- decompose(ts_do_M2)
@@ -46,11 +82,44 @@ lines(M2NS$DATE,M2NS$`M2NS sem saz`,"l", xlab = "data", ylab = "valor do M2", co
 modelo_sazonalM2 = seas(ts_do_M2)
 plot(modelo_sazonalM2)
 
-air_x13M2 = predict(modelo_sazonalM2)
-M2NS["M2NS arima x13"] <- air_x13M2
+arima_x13M2 = predict(modelo_sazonalM2)
+M2NS["M2NS arima x13"] <- arima_x13M2
 ```
+Observando os dois gráficos não parece existir uma tendência sazonal como no primeiro caso
 
 
+Questão 2
 
+```{r}
+#Filtro HP
+filtradoM2 = hpfilter(log(arima_x13M2),type = "lambda")
+
+plot(filtradoM2$trend - log(arima_x13M2))
+```
+```{r}
+plot(log(arima_x13M2), col='red')
+lines(filtradoM2$trend,col='blue')
+```
+Porém ainda parece existir uma componente ciclica na série temporal
+
+
+Questão 3
+
+```{r}
+#Proposta de Hamilton
+base = cbind(arima_x13M2,do.call(cbind, lapply(-24-0:3, function(x) lag(arima_x13M2, x))))
+colnames(base) = c('l_air', paste('L',0:3,sep=''))
+
+#Passando para log (modelo multiplicativo!)
+base = log(base)
+
+model = lm(l_air~., data = base)
+
+base = cbind(base, 'hamilton_cycle' =base[,1]- predict(model, base))
+
+plot(base[,"hamilton_cycle"], col = 'blue')
+abline(h=0)
+```
+comparando o ciclo HP e o ciclo de Hamilton, neste caso eles ficaram com suas tendências invertidas não se comparando, talvez isso esteja associado com o ciclo de hamilton descartar os primeiros 2 anos. Mas, mesmo assim os limites da variância em log ainda ficaram similares.
 
 
