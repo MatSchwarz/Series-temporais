@@ -10,9 +10,47 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 library("seasonal") #Arima X13-Seats
 library("mFilter") #Filtro HP
 ```
+```{r}
+available_series(language = c("en", "br"))
+```
+```{r}
+PIB = ipeadata("BM12_PIB12",language = "br")
+PIB <- data.frame(data = PIB$date, valor = PIB$value)
+ts_do_PIB <- ts(PIB$valor,start = c(1990,1), frequency = 12)
+decomp <- decompose(ts_do_PIB)
+PIB["valor sem saz"] = ts_do_PIB - decomp$seasonal
+```
 
 ```{r}
-gas = ipeadata("ANP_CGASN",language = "br")
+plot(PIB$data,PIB$valor,"l", xlab = "ano", ylab = "valor do gas")
+lines(PIB$data,PIB$`valor sem saz`,"l", xlab = "ano", ylab = "valor do gas", col = "blue")
+
 ```
+```{r}
+modelo_sazonal = seas(ts_do_PIB)
+plot(modelo_sazonal)
+
+air_x13 = predict(modelo_sazonal)
+PIB["valor arima x13"] <- air_x13
+```
+```{r}
+ts_do_M2 <- ts(M2NS$M2NS,start = c(2019,7), frequency = 12)
+decomp_M2 <- decompose(ts_do_M2)
+M2NS["M2NS sem saz"] = ts_do_M2 - decomp_M2$seasonal
+```
+```{r}
+plot(M2NS$DATE,M2NS$M2NS,"l", xlab = "data", ylab = "valor do M2")
+lines(M2NS$DATE,M2NS$`M2NS sem saz`,"l", xlab = "data", ylab = "valor do M2", col = "blue")
+```
+```{r}
+modelo_sazonalM2 = seas(ts_do_M2)
+plot(modelo_sazonalM2)
+
+air_x13M2 = predict(modelo_sazonalM2)
+M2NS["M2NS arima x13"] <- air_x13M2
+```
+
+
+
 
 
