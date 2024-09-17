@@ -1,11 +1,15 @@
 ---
-title: "R Notebook"
+title: "Decomposição de Series temporais"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+Matias Oliveira Schwarz 4763711
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+Maria Rita Xavier Ribeiro 11802158
+
+Pedro Akira Kitayama 11271907
+
+
 ```{r}
 library("seasonal") #Arima X13-Seats
 library("mFilter") #Filtro HP
