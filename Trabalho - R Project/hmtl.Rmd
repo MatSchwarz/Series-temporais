@@ -166,6 +166,7 @@ ativa (link), de janeiro de 1991 a dezembro de 2023, com ajuste sazonal.
 
 ```{r}
 library(readxl)
+library(dplyr)
 pop_ec_ativa <- read_xlsx("pop_ec_ativa.xlsx")
 Link1_M <- read.csv("link1.csv")
 ```
