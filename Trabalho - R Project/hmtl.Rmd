@@ -192,8 +192,6 @@ names(Link1_M)[names(Link1_M) == "OBS_VALUE"] <- "vagas_livres"
 names(pop_ec_ativa)[names(pop_ec_ativa) == "X13 JDemetra+  Trend...10"] <- "desemprego_obs"
 ```
 
- 
-
 Transformar ambas as colunas em que estamos interessados em valores
 numéricos.
 
@@ -208,8 +206,6 @@ Remover a primeira coluna em pop_ec_ativa que não eram dados.
 ```{r}
 pop_ec_ativa <- pop_ec_ativa[!is.na(pop_ec_ativa$populacao_ativa),]
 ```
-
- 
 
 Multiplicou-se os dados de população economicamente ativas por 1000000 para
 corresponder ao total de pessoas.
@@ -235,6 +231,7 @@ yticks <- axTicks(2)
 axis(2, at = yticks, labels = paste0(yticks, "%"))
 text(x = 2000, y = 1.6, labels = "Mercado de trabalho alemão")
 text(x = 2000, y = 1.4, labels = "1991-2013")
+text(x = 2009, y = 1.9, labels = "Vagas / População ativa")
 ```
 
 Importar bibliotecas necessárias para fazer os testes de tendência
@@ -246,10 +243,8 @@ library("lmtest") #Teste robusto
 library("car") #Teste de restrições lineares
 ```
 
- 
-
 Há evidencia de não estacionariedade na série? de quais tipos?
-justifique
+Justifique.
 
 ```{r}
 teste_linear = CADFtest(taxa_vacancia, type = "trend", max.lag.y = ceiling(12*(length(taxa_vacancia)/100)^(1/4)),
@@ -257,7 +252,7 @@ teste_linear = CADFtest(taxa_vacancia, type = "trend", max.lag.y = ceiling(12*(l
 print(teste_linear)
 ```
 
-Como o p-valor é 0.62 \> 0.10 não rejeitamos a hipotese nula de que não
+Como o p-valor é 0.4078 \> 0.10 não rejeitamos a hipotese nula de que não
 tem raiz unitária
 
  
