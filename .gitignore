@@ -50,3 +50,23 @@ rsconnect/
 
 .
 decomposicoes_serie_tempo.nb.html
+.DS_Store
+pdfs/document-2.pdf
+pdfs/document-3.pdf
+.gitignore
+pdfs/document-4.pdf
+pdfs/document-5.pdf
+pdfs/document-6.pdf
+pdfs/slides-2.pdf
+pdfs/slides-3.pdf
+pdfs/slides-4.pdf
+pdfs/slides.pdf
+pdfs/aula2.pdf
+pdfs/aula3.pdf
+pdfs/aula4.pdf
+pdfs/aula5.pdf
+pdfs/lista1.pdf
+pdfs/lista2.pdf
+pdfs/lista3.pdf
+pdfs/lista4.pdf
+pdfs/lista5.pdf

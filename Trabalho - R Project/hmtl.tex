@@ -1,0 +1,904 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Trabalho 1},
+  pdfauthor={Maria Rita Xavier Ribeiro (11802158), Matias Schwarz (4763711)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Trabalho 1}
+\author{Maria Rita Xavier Ribeiro (11802158), Matias Schwarz (4763711)}
+\date{2024-10-29}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\subsection{Parte 1}\label{parte-1}
+
+\subsubsection{Questão 1}\label{questuxe3o-1}
+
+\textbf{Michaillat e Saez (2022) propõem uma medida da taxa de
+desemprego eficiente de uma economia. Qual é essa medida? Qual é sua
+interpretação? Explique a derivação da fórmula por eles obtida.}
+
+Michaillat e Saez (2022) propõem uma nova abordagem para calcular a
+\textbf{taxa de desemprego eficiente} em uma economia, definida como a
+taxa que minimiza o desperdício de trabalho, equilibrando o número de
+desempregados e as vagas disponíveis.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{A Medida da Taxa de Desemprego Eficiente}
+\end{enumerate}
+
+A fórmula proposta para a \textbf{taxa de desemprego eficiente} é a
+seguinte:
+
+\[ u^* = \sqrt{u \times v} \]
+
+onde: - \(u^*\) é a taxa de desemprego eficiente, - \(u\) é a taxa de
+desemprego observada, - \(v\) é a taxa de vagas (ou o número de vagas em
+aberto como uma fração da força de trabalho).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Interpretação da Medida}
+\end{enumerate}
+
+A taxa de desemprego eficiente \(u^*\) é interpretada como o ponto onde
+o mercado de trabalho equilibra o excesso de desemprego e o excesso de
+vagas. Essa taxa representa um nível de desemprego onde o custo social
+das vagas não preenchidas é igual ao custo social do desemprego. Ela
+destaca a necessidade de balancear o desemprego e as vagas para atingir
+um nível eficiente de desemprego, oferecendo uma abordagem prática para
+políticas de mercado de trabalho mais eficazes.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Se} \(u > u^*\): Há excesso de desemprego na economia,
+  indicando que a oferta de trabalho é maior do que a demanda.
+\item
+  \textbf{Se} \(u < u^*\): Há excesso de vagas na economia, significando
+  que a demanda por trabalhadores é maior do que a oferta disponível.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Derivação da Fórmula}
+\end{enumerate}
+
+A derivação da taxa de desemprego eficiente por Michaillat e Saez é
+baseada na \textbf{curva de Beveridge}, que descreve a relação inversa
+entre o desemprego e as vagas.\\
+A derivação matemática baseia-se na minimização do custo social total no
+mercado de trabalho, levando à fórmula final que equilibra os custos de
+desemprego e de vagas, definindo a \textbf{taxa de desemprego eficiente}
+como a média geométrica entre as taxas de desemprego e de vagas.
+
+Passos principais da derivação:
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  \textbf{Curva de Beveridge:}
+\end{enumerate}
+
+A curva de Beveridge é uma relação empírica observada entre a taxa de
+desemprego e a taxa de vagas. Ela mostra que, em períodos de alta no
+desemprego, a taxa de vagas tende a ser baixa, e vice-versa.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Minimização do Desperdício de Trabalho:}
+\end{enumerate}
+
+A medida proposta minimiza o uso não produtivo do trabalho, representado
+pelo somatório de duas partes:
+
+O custo social total na economia é composto por:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Custo do Desemprego:} Representa a perda de bem-estar
+  associada a trabalhadores desempregados, denotado por \(C_u\).
+\item
+  \textbf{Custo das Vagas em Aberto:} Representa a perda associada a
+  vagas não preenchidas, denotado por \(C_v\).
+\end{itemize}
+
+Assim, o custo social total é definido como:
+
+\[ C = C_u + C_v \]
+
+Assume-se que os custos individuais são proporcionais às taxas
+observadas: - \textbf{Custo do Desemprego:} Proporcional à taxa de
+desemprego \(u\), ou seja, \(C_u \propto u\). - \textbf{Custo das Vagas
+em Aberto:} Proporcional à taxa de vagas \(v\), ou seja,
+\(C_v \propto v\).
+
+Logo, o custo social total pode ser escrito como:
+
+\[ C = A \cdot u + B \cdot v \]
+
+onde \(A\) e \(B\) são constantes que representam a sensibilidade dos
+custos ao desemprego e às vagas, respectivamente.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Função de Minimização:}
+\end{enumerate}
+
+Eles formulam uma função de minimização que combina o custo do
+desemprego com o custo de vagas em aberto. A condição de eficiência é
+atingida quando a derivada dessa função com relação ao desemprego é
+igual à derivada com relação às vagas.
+
+Essa condição de equilíbrio resulta na fórmula
+\(u^* = \sqrt{u \times v}\), onde o custo marginal do desemprego é igual
+ao custo marginal das vagas em aberto. A derivação da fórmula para a
+\textbf{taxa de desemprego eficiente} em Michaillat e Saez (2022) é
+baseada na minimização do custo social associado ao desemprego e às
+vagas em aberto, usando como base a \textbf{curva de Beveridge}, que
+descreve a relação inversa entre desemprego e vagas. Para encontrar a
+taxa de desemprego eficiente, é necessário minimizar o custo social
+total. Isso é feito diferenciando o custo social total com respeito a
+\(u\), usando a condição de que o custo social marginal de \(u\) seja
+igual ao custo social marginal de \(v\):
+
+\[
+\frac{dC}{du} = \frac{dC}{dv}
+\]
+
+A condição de eficiência implica que o custo marginal de adicionar mais
+um desempregado seja igual ao custo marginal de adicionar mais uma vaga
+em aberto. Isso leva a:
+
+\[
+A = B \cdot \frac{dv}{du}
+\]
+
+Usando a relação inversa da curva de Beveridge, sabemos que:
+
+\[
+\frac{dv}{du} = -\frac{v}{u}
+\]
+
+Substituindo isso na equação anterior:
+
+\[
+A = -B \cdot \frac{v}{u}
+\]
+
+Rearranjando a expressão e resolvendo para a taxa de desemprego
+eficiente \(u^*\), obtemos:
+
+\[
+u^* = \sqrt{u \cdot v}
+\]
+
+Essa fórmula para a taxa de desemprego eficiente indica que ela é a
+\textbf{média geométrica} das taxas de desemprego e de vagas. Ela
+representa o ponto onde o custo social do desemprego e o custo das vagas
+em aberto estão equilibrados, refletindo a alocação eficiente dos
+recursos no mercado de trabalho.
+
+\subsection{Parte 2}\label{parte-2}
+
+Faça o download da série de vagas não preenchidas no mercado de trabalho
+alemão (link), além dos dados de desemprego e população economicamente
+ativa (link), de janeiro de 1991 a dezembro de 2023, com ajuste sazonal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{pop\_ec\_ativa }\OtherTok{\textless{}{-}} \FunctionTok{read\_xlsx}\NormalTok{(}\StringTok{"pop\_ec\_ativa.xlsx"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `` -> `...1`
+## * `` -> `...2`
+## * `Originalwerte` -> `Originalwerte...3`
+## * `Originalwerte` -> `Originalwerte...4`
+## * `Originalwerte` -> `Originalwerte...5`
+## * `Originalwerte` -> `Originalwerte...6`
+## * `X13 JDemetra+ Trend` -> `X13 JDemetra+ Trend...7`
+## * `X13 JDemetra+ Trend` -> `X13 JDemetra+ Trend...8`
+## * `X13 JDemetra+ Trend` -> `X13 JDemetra+ Trend...9`
+## * `X13 JDemetra+ Trend` -> `X13 JDemetra+ Trend...10`
+## * `BV4.1 Trend` -> `BV4.1 Trend...11`
+## * `BV4.1 Trend` -> `BV4.1 Trend...12`
+## * `BV4.1 Trend` -> `BV4.1 Trend...13`
+## * `BV4.1 Trend` -> `BV4.1 Trend...14`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Link1\_M }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"link1.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Questão 2}\label{questuxe3o-2}
+
+\textbf{Construa a série de taxa de vacância (postos não preenchidos
+como percentual da população economicamente ativa). Há evidência de não
+estacionariedade na série? De quais tipos? Justifique.}
+
+Queremos selecionar as linhas de população economicamente ativa só até
+dezembro de 2023
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_ec\_ativa }\OtherTok{\textless{}{-}}\NormalTok{ pop\_ec\_ativa[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{397}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+~
+
+Mudar os nomes das colunas de interesse para facilitar a manipulação
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(pop\_ec\_ativa)[}\FunctionTok{names}\NormalTok{(pop\_ec\_ativa) }\SpecialCharTok{==} \StringTok{"X13 JDemetra+  Trend...7"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"populacao\_ativa"}
+\FunctionTok{names}\NormalTok{(Link1\_M)[}\FunctionTok{names}\NormalTok{(Link1\_M) }\SpecialCharTok{==} \StringTok{"OBS\_VALUE"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"vagas\_livres"}
+\FunctionTok{names}\NormalTok{(pop\_ec\_ativa)[}\FunctionTok{names}\NormalTok{(pop\_ec\_ativa) }\SpecialCharTok{==} \StringTok{"X13 JDemetra+  Trend...10"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"desemprego\_obs"}
+\end{Highlighting}
+\end{Shaded}
+
+~
+
+Transformar ambas as colunas em que estamos interessados em valores
+numéricos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Link1\_M}\SpecialCharTok{$}\NormalTok{vagas\_livres }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(Link1\_M}\SpecialCharTok{$}\NormalTok{vagas\_livres)}
+\NormalTok{pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{populacao\_ativa }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{populacao\_ativa)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{desemprego\_obs }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{desemprego\_obs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: NAs introduced by coercion
+\end{verbatim}
+
+~
+
+Remover a primeira coluna em pop\_ec\_ativa que não eram dados
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_ec\_ativa }\OtherTok{\textless{}{-}}\NormalTok{ pop\_ec\_ativa[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{populacao\_ativa),]}
+\end{Highlighting}
+\end{Shaded}
+
+~
+
+Multiplicar os dados de população economicamente ativas por 1000000 para
+ser o total de pessoas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{populacao\_ativa }\OtherTok{\textless{}{-}}\NormalTok{ pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{populacao\_ativa}\SpecialCharTok{*}\DecValTok{1000000}
+\end{Highlighting}
+\end{Shaded}
+
+~
+
+Criar a Série temporal de taxa de vacância
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{taxa\_vacancia }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(Link1\_M}\SpecialCharTok{$}\NormalTok{vagas\_livres}\SpecialCharTok{/}\NormalTok{pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{populacao\_ativa, }\AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\DecValTok{1991}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{frequency =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+~
+
+Importar bibliotecas necessárias para fazer os testes de tendência
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"CADFtest"}\NormalTok{) }\CommentTok{\# testes de raiz unitária}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: dynlm
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: zoo
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'zoo'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: sandwich
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: tseries
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: urca
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 methods overwritten by 'CADFtest':
+##   method     from    
+##   bread.mlm  sandwich
+##   estfun.mlm sandwich
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"sandwich"}\NormalTok{) }\CommentTok{\#Erros padrão HAC}
+\FunctionTok{library}\NormalTok{(}\StringTok{"lmtest"}\NormalTok{) }\CommentTok{\#Teste robusto}
+\FunctionTok{library}\NormalTok{(}\StringTok{"car"}\NormalTok{) }\CommentTok{\#Teste de restrições lineares}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+~
+
+Há evidencia de não estacionariedade na série? de quais tipos?
+justifique
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teste\_linear }\OtherTok{=} \FunctionTok{CADFtest}\NormalTok{(taxa\_vacancia, }\AttributeTok{type =} \StringTok{"trend"}\NormalTok{, }\AttributeTok{max.lag.y =} \FunctionTok{ceiling}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(taxa\_vacancia)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)),}
+                 \AttributeTok{criterion =} \StringTok{"MAIC"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(teste\_linear)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ADF test
+## 
+## data:  taxa_vacancia
+## ADF(1) = -1.9507, p-value = 0.6257
+## alternative hypothesis: true delta is less than 0
+## sample estimates:
+##       delta 
+## -0.02259128
+\end{verbatim}
+
+Como o p-valor é 0.62 \textgreater{} 0.10 não rejeitamos a hipotese nula
+de que não tem raiz unitária
+
+~
+
+Testar se tem tendência linear
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(teste\_linear}\SpecialCharTok{$}\NormalTok{est.model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Time series regression with "ts" data:
+## Start = 1992(7), End = 2023(12)
+## 
+## Call:
+## dynlm(formula = formula(model), start = obs.1, end = obs.T)
+## 
+## Coefficients:
+## (Intercept)         trnd      L(y, 1)   L(d(y), 1)  
+##   2.057e-04    2.770e-07   -2.259e-02   -7.767e-02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{linearHypothesis}\NormalTok{(teste\_linear}\SpecialCharTok{$}\NormalTok{est.model,}\FunctionTok{c}\NormalTok{(}\StringTok{"trnd = 0"}\NormalTok{, }\StringTok{"L(y, 1) = 0"}\NormalTok{ ))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Linear hypothesis test:
+## trnd = 0
+## L(y,0
+## 
+## Model 1: restricted model
+## Model 2: d(y) ~ trnd + L(y, 1) + L(d(y), 1)
+## 
+##   Res.Df        RSS Df  Sum of Sq      F Pr(>F)
+## 1    376 0.00029415                            
+## 2    374 0.00029111  2 3.0343e-06 1.9491 0.1438
+\end{verbatim}
+
+Como o teste F é 1.949 não rejeitamos que o parâmetro beta possa ser 0
+
+~
+
+Chegando raiz unitária para o modelo com intercepto
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teste\_intercepto }\OtherTok{=} \FunctionTok{CADFtest}\NormalTok{(taxa\_vacancia, }\AttributeTok{type =} \StringTok{"drift"}\NormalTok{, }\AttributeTok{max.lag.y =} \FunctionTok{ceiling}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(taxa\_vacancia)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)), }
+                 \AttributeTok{criterion =} \StringTok{"MAIC"}\NormalTok{)}
+\NormalTok{teste\_intercepto}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ADF test
+## 
+## data:  taxa_vacancia
+## ADF(1) = -1.8839, p-value = 0.3398
+## alternative hypothesis: true delta is less than 0
+## sample estimates:
+##       delta 
+## -0.01951328
+\end{verbatim}
+
+Como o p-valor é 0.33 \textgreater{} 0.10 não rejeitamos a hipotese nula
+de que não tem raiz unitária
+
+~
+
+Vamos conduzir o teste F para detectar se o modelo de fato apresenta
+intercepto.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(teste\_intercepto}\SpecialCharTok{$}\NormalTok{est.model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Time series regression with "ts" data:
+## Start = 1992(7), End = 2023(12)
+## 
+## Call:
+## dynlm(formula = formula(model), start = obs.1, end = obs.T)
+## 
+## Coefficients:
+## (Intercept)      L(y, 1)   L(d(y), 1)  
+##    0.000229    -0.019513    -0.079650
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{linearHypothesis}\NormalTok{(teste\_intercepto}\SpecialCharTok{$}\NormalTok{est.model,}\FunctionTok{c}\NormalTok{(}\StringTok{"(Intercept) = 0"}\NormalTok{, }\StringTok{"L(y, 1) = 0"}\NormalTok{ ))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Linear hypothesis test:
+## (Intercept) = 0
+## L(y,0
+## 
+## Model 1: restricted model
+## Model 2: d(y) ~ L(y, 1) + L(d(y), 1)
+## 
+##   Res.Df        RSS Df  Sum of Sq      F Pr(>F)
+## 1    377 0.00029420                            
+## 2    375 0.00029139  2 2.8116e-06 1.8092 0.1652
+\end{verbatim}
+
+Como o teste F é 1.809, não rejeitamos que o parâmetro alpha possa ser 0
+
+~
+
+O intercepto e o coeficiente associado a \(y_{t-1}\) são ambos zero.
+Nesse caso, vamos para o modelo sem componentes determinísticos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teste }\OtherTok{=} \FunctionTok{CADFtest}\NormalTok{(taxa\_vacancia, }\AttributeTok{type =} \StringTok{"none"}\NormalTok{, }\AttributeTok{max.lag.y =} \FunctionTok{ceiling}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(taxa\_vacancia)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)), }
+                 \AttributeTok{criterion =} \StringTok{"MAIC"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(teste)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ADF test
+## 
+## data:  taxa_vacancia
+## ADF(1) = -0.44324, p-value = 0.5223
+## alternative hypothesis: true delta is less than 0
+## sample estimates:
+##       delta 
+## -0.00168675
+\end{verbatim}
+
+Como o p-valor é 0.52 \textgreater{} 0.10 não rejeitamos a hipotese nula
+de que não tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
+
+~
+
+Vamos testar a presença de componentes determinísticos. Como os dados
+apresentam tendência estocástica, trabalhamos com a série diferenciadas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ trend }\OtherTok{=} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(}\FunctionTok{length}\NormalTok{(taxa\_vacancia)}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\NormalTok{modelo }\OtherTok{=} \FunctionTok{lm}\NormalTok{(}\FunctionTok{diff}\NormalTok{(taxa\_vacancia)}\SpecialCharTok{\textasciitilde{}}\NormalTok{trend)}
+\FunctionTok{coeftest}\NormalTok{(modelo, }\AttributeTok{vcov. =}\NormalTok{ vcovHAC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## t test of coefficients:
+## 
+##                Estimate  Std. Error t value Pr(>|t|)
+## (Intercept) -2.9456e-05  1.0575e-04 -0.2785   0.7807
+## trend        1.2650e-07  5.1262e-07  0.2468   0.8052
+\end{verbatim}
+
+Como ambos os p valores são maiores que 0.10, não rejeitamos a hipótese
+nula de que não há tendência linear determinística na série em primeira
+diferença
+
+\subsubsection{Questão 3}\label{questuxe3o-3}
+
+\textbf{. Construa a medida de desemprego eficiente de Michaillat e Saez
+(2022). Há evidência de não estacionariedade na série? De quais tipos?
+Justifique.}
+
+\begin{description}
+\item[Como explicado na questão 1 a medida de desemprego eficiente é
+dada por]
+\[u^* = \sqrt(u \cdot v)\]
+\end{description}
+
+Em que \(u\) é a taxa de desemprego observada e \(v\) é a taxa de vagas
+livres, que são representadas por
+\texttt{pop\_ec\_ativa\$desemprego\_obs} e pela série temporal,
+taxa\_vacancia, criada na Questão 2, respectivamente. Vamos então criar
+uma uma série temporal com essas duas colunas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{taxa\_desemprego }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(pop\_ec\_ativa}\SpecialCharTok{$}\NormalTok{desemprego\_obs, }\AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\DecValTok{1991}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{frequency =} \DecValTok{12}\NormalTok{)}
+\NormalTok{desemprego\_eficiente }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(taxa\_desemprego}\SpecialCharTok{*}\NormalTok{taxa\_vacancia)}
+\end{Highlighting}
+\end{Shaded}
+
+~
+
+Vamos repetir todo processo da questão 2 para verificar a
+estacionariedade da série
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teste\_linear }\OtherTok{=} \FunctionTok{CADFtest}\NormalTok{(desemprego\_eficiente, }\AttributeTok{type =} \StringTok{"trend"}\NormalTok{, }\AttributeTok{max.lag.y =} \FunctionTok{ceiling}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(desemprego\_eficiente)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)),}
+                 \AttributeTok{criterion =} \StringTok{"MAIC"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(teste\_linear)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ADF test
+## 
+## data:  desemprego_eficiente
+## ADF(1) = -2.2053, p-value = 0.4848
+## alternative hypothesis: true delta is less than 0
+## sample estimates:
+##       delta 
+## -0.02421816
+\end{verbatim}
+
+Como o p-valor é 0.48 \textgreater{} 0.10 não rejeitamos a hipotese nula
+de que não tem raiz unitária
+
+~
+
+Vamos verificar se tem tendência linear
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(teste\_linear}\SpecialCharTok{$}\NormalTok{est.model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Time series regression with "ts" data:
+## Start = 1992(7), End = 2023(12)
+## 
+## Call:
+## dynlm(formula = formula(model), start = obs.1, end = obs.T)
+## 
+## Coefficients:
+## (Intercept)         trnd      L(y, 1)   L(d(y), 1)  
+##   8.146e-03   -9.451e-06   -2.422e-02   -7.249e-02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{linearHypothesis}\NormalTok{(teste\_linear}\SpecialCharTok{$}\NormalTok{est.model,}\FunctionTok{c}\NormalTok{(}\StringTok{"trnd = 0"}\NormalTok{, }\StringTok{"L(y, 1) = 0"}\NormalTok{ ))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Linear hypothesis test:
+## trnd = 0
+## L(y,0
+## 
+## Model 1: restricted model
+## Model 2: d(y) ~ trnd + L(y, 1) + L(d(y), 1)
+## 
+##   Res.Df      RSS Df  Sum of Sq      F  Pr(>F)  
+## 1    376 0.038878                               
+## 2    374 0.038287  2 0.00059091 2.8861 0.05704 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+Como o teste F é 2.8861 não rejeitamos que o parâmetro beta possa ser 0
+
+~
+
+Checando raiz unitária para o modelo com intercepto
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teste\_intercepto }\OtherTok{=} \FunctionTok{CADFtest}\NormalTok{(desemprego\_eficiente, }\AttributeTok{type =} \StringTok{"drift"}\NormalTok{, }\AttributeTok{max.lag.y =} \FunctionTok{ceiling}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(desemprego\_eficiente)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)), }
+                 \AttributeTok{criterion =} \StringTok{"MAIC"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(teste\_intercepto)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ADF test
+## 
+## data:  desemprego_eficiente
+## ADF(1) = -1.5925, p-value = 0.4854
+## alternative hypothesis: true delta is less than 0
+## sample estimates:
+##       delta 
+## -0.01590331
+\end{verbatim}
+
+p-valor é 0.48 \textgreater{} 0.10 não rejeitamos a hipotese nula de que
+não tem raiz unitária
+
+~
+
+Vamos conduzir o teste F para detectar se o modelo de fato apresenta
+intercepto.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(teste\_intercepto}\SpecialCharTok{$}\NormalTok{est.model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Time series regression with "ts" data:
+## Start = 1992(7), End = 2023(12)
+## 
+## Call:
+## dynlm(formula = formula(model), start = obs.1, end = obs.T)
+## 
+## Coefficients:
+## (Intercept)      L(y, 1)   L(d(y), 1)  
+##    0.004033    -0.015903    -0.072160
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{linearHypothesis}\NormalTok{(teste\_intercepto}\SpecialCharTok{$}\NormalTok{est.model,}\FunctionTok{c}\NormalTok{(}\StringTok{"(Intercept) = 0"}\NormalTok{, }\StringTok{"L(y, 1) = 0"}\NormalTok{ ))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Linear hypothesis test:
+## (Intercept) = 0
+## L(y,0
+## 
+## Model 1: restricted model
+## Model 2: d(y) ~ L(y, 1) + L(d(y), 1)
+## 
+##   Res.Df      RSS Df  Sum of Sq      F Pr(>F)
+## 1    377 0.038881                            
+## 2    375 0.038617  2 0.00026376 1.2806 0.2791
+\end{verbatim}
+
+Como o teste F é 1.2806, não rejeitamos que o parâmetro alpha possa ser
+0
+
+~
+
+Não rejeitamos que o intercepto e o coeficiente associado a \(y_{t-1}\)
+são ambos zero. Nesse caso, vamos para o modelo sem componentes
+determinísticos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teste }\OtherTok{=} \FunctionTok{CADFtest}\NormalTok{(desemprego\_eficiente, }\AttributeTok{type =} \StringTok{"none"}\NormalTok{, }\AttributeTok{max.lag.y =} \FunctionTok{ceiling}\NormalTok{(}\DecValTok{12}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{length}\NormalTok{(desemprego\_eficiente)}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)), }
+                 \AttributeTok{criterion =} \StringTok{"MAIC"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(teste)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ADF test
+## 
+## data:  desemprego_eficiente
+## ADF(1) = -0.46971, p-value = 0.5116
+## alternative hypothesis: true delta is less than 0
+## sample estimates:
+##         delta 
+## -0.0009301848
+\end{verbatim}
+
+Como o p-valor é 0.51 \textgreater{} 0.10 não rejeitamos a hipotese nula
+de que não tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
+
+\subsubsection{Questão 4}\label{questuxe3o-4}
+
+\subsubsection{Questão 5}\label{questuxe3o-5}
+
+\subsubsection{Questão 6}\label{questuxe3o-6}
+
+\subsubsection{Questão 7}\label{questuxe3o-7}
+
+\end{document}

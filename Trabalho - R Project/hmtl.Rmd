@@ -1,0 +1,414 @@
+---
+title: "Trabalho 1"
+author: 'Maria Rita Xavier Ribeiro (11802158), Matias Schwarz (4763711) '
+date: "2024-10-29"
+output:
+  html_document:
+    toc: true
+    number_sections: false
+  pdf_document:
+    toc: true
+editor_options:
+  markdown:
+    wrap: 72
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Parte 1
+
+### Questão 1
+
+**Michaillat e Saez (2022) propõem uma medida da taxa de desemprego
+eficiente de uma economia. Qual é essa medida? Qual é sua interpretação?
+Explique a derivação da fórmula por eles obtida.**
+
+Michaillat e Saez (2022) propõem uma nova abordagem para calcular a
+**taxa de desemprego eficiente** em uma economia, definida como a taxa
+que minimiza o desperdício de trabalho, equilibrando o número de
+desempregados e as vagas disponíveis.
+
+1.  **A Medida da Taxa de Desemprego Eficiente**
+
+A fórmula proposta para a **taxa de desemprego eficiente** é a seguinte:
+
+$$ u^* = \sqrt{u \times v} $$
+
+onde: - $u^*$ é a taxa de desemprego eficiente, - $u$ é a taxa de
+desemprego observada, - $v$ é a taxa de vagas (ou o número de vagas em
+aberto como uma fração da força de trabalho).
+
+2.  **Interpretação da Medida**
+
+A taxa de desemprego eficiente $u^*$ é interpretada como o ponto onde o
+mercado de trabalho equilibra o excesso de desemprego e o excesso de
+vagas. Essa taxa representa um nível de desemprego onde o custo social
+das vagas não preenchidas é igual ao custo social do desemprego. Ela
+destaca a necessidade de balancear o desemprego e as vagas para atingir
+um nível eficiente de desemprego, oferecendo uma abordagem prática para
+políticas de mercado de trabalho mais eficazes.
+
+-   **Se** $u > u^*$: Há excesso de desemprego na economia, indicando
+    que a oferta de trabalho é maior do que a demanda.
+-   **Se** $u < u^*$: Há excesso de vagas na economia, significando que
+    a demanda por trabalhadores é maior do que a oferta disponível.
+
+3.  **Derivação da Fórmula**
+
+A derivação da taxa de desemprego eficiente por Michaillat e Saez é
+baseada na **curva de Beveridge**, que descreve a relação inversa entre
+o desemprego e as vagas.\
+A derivação matemática baseia-se na minimização do custo social total no
+mercado de trabalho, levando à fórmula final que equilibra os custos de
+desemprego e de vagas, definindo a **taxa de desemprego eficiente** como
+a média geométrica entre as taxas de desemprego e de vagas.
+
+Passos principais da derivação:
+
+a.  **Curva de Beveridge:**
+
+A curva de Beveridge é uma relação empírica observada entre a taxa de
+desemprego e a taxa de vagas. Ela mostra que, em períodos de alta no
+desemprego, a taxa de vagas tende a ser baixa, e vice-versa.
+
+b.  **Minimização do Desperdício de Trabalho:**
+
+A medida proposta minimiza o uso não produtivo do trabalho, representado
+pelo somatório de duas partes:
+
+O custo social total na economia é composto por:
+
+-   **Custo do Desemprego:** Representa a perda de bem-estar associada a
+    trabalhadores desempregados, denotado por $C_u$.
+-   **Custo das Vagas em Aberto:** Representa a perda associada a vagas
+    não preenchidas, denotado por $C_v$.
+
+Assim, o custo social total é definido como:
+
+$$ C = C_u + C_v $$
+
+Assume-se que os custos individuais são proporcionais às taxas
+observadas: - **Custo do Desemprego:** Proporcional à taxa de desemprego
+$u$, ou seja, $C_u \propto u$. - **Custo das Vagas em Aberto:**
+Proporcional à taxa de vagas $v$, ou seja, $C_v \propto v$.
+
+Logo, o custo social total pode ser escrito como:
+
+$$ C = A \cdot u + B \cdot v $$
+
+onde $A$ e $B$ são constantes que representam a sensibilidade dos custos
+ao desemprego e às vagas, respectivamente.
+
+c.  **Função de Minimização:**
+
+Eles formulam uma função de minimização que combina o custo do
+desemprego com o custo de vagas em aberto. A condição de eficiência é
+atingida quando a derivada dessa função com relação ao desemprego é
+igual à derivada com relação às vagas.
+
+Essa condição de equilíbrio resulta na fórmula
+$u^* = \sqrt{u \times v}$, onde o custo marginal do desemprego é igual
+ao custo marginal das vagas em aberto. A derivação da fórmula para a
+**taxa de desemprego eficiente** em Michaillat e Saez (2022) é baseada
+na minimização do custo social associado ao desemprego e às vagas em
+aberto, usando como base a **curva de Beveridge**, que descreve a
+relação inversa entre desemprego e vagas. Para encontrar a taxa de
+desemprego eficiente, é necessário minimizar o custo social total. Isso
+é feito diferenciando o custo social total com respeito a $u$, usando a
+condição de que o custo social marginal de $u$ seja igual ao custo
+social marginal de $v$:
+
+$$
+\frac{dC}{du} = \frac{dC}{dv}
+$$
+
+A condição de eficiência implica que o custo marginal de adicionar mais
+um desempregado seja igual ao custo marginal de adicionar mais uma vaga
+em aberto. Isso leva a:
+
+$$
+A = B \cdot \frac{dv}{du}
+$$
+
+Usando a relação inversa da curva de Beveridge, sabemos que:
+
+$$
+\frac{dv}{du} = -\frac{v}{u}
+$$
+
+Substituindo isso na equação anterior:
+
+$$
+A = -B \cdot \frac{v}{u}
+$$
+
+Rearranjando a expressão e resolvendo para a taxa de desemprego
+eficiente $u^*$, obtemos:
+
+$$
+u^* = \sqrt{u \cdot v}
+$$
+
+Essa fórmula para a taxa de desemprego eficiente indica que ela é a
+**média geométrica** das taxas de desemprego e de vagas. Ela representa
+o ponto onde o custo social do desemprego e o custo das vagas em aberto
+estão equilibrados, refletindo a alocação eficiente dos recursos no
+mercado de trabalho.
+
+## Parte 2
+
+Faça o download da série de vagas não preenchidas no mercado de trabalho
+alemão (link), além dos dados de desemprego e população economicamente
+ativa (link), de janeiro de 1991 a dezembro de 2023, com ajuste sazonal.
+
+```{r}
+library(readxl)
+pop_ec_ativa <- read_xlsx("pop_ec_ativa.xlsx")
+Link1_M <- read.csv("link1.csv")
+```
+
+### Questão 2
+
+**Construa a série de taxa de vacância (postos não preenchidos como
+percentual da população economicamente ativa). Há evidência de não
+estacionariedade na série? De quais tipos? Justifique.**
+
+Queremos selecionar as linhas de população economicamente ativa só até
+dezembro de 2023
+
+```{r}
+pop_ec_ativa <- pop_ec_ativa[1:397,]
+```
+
+ 
+
+Mudar os nomes das colunas de interesse para facilitar a manipulação
+
+```{r}
+names(pop_ec_ativa)[names(pop_ec_ativa) == "X13 JDemetra+  Trend...7"] <- "populacao_ativa"
+names(Link1_M)[names(Link1_M) == "OBS_VALUE"] <- "vagas_livres"
+names(pop_ec_ativa)[names(pop_ec_ativa) == "X13 JDemetra+  Trend...10"] <- "desemprego_obs"
+```
+
+ 
+
+Transformar ambas as colunas em que estamos interessados em valores
+numéricos
+
+```{r}
+Link1_M$vagas_livres <- as.numeric(Link1_M$vagas_livres)
+pop_ec_ativa$populacao_ativa <- as.numeric(pop_ec_ativa$populacao_ativa)
+pop_ec_ativa$desemprego_obs <- as.numeric(pop_ec_ativa$desemprego_obs)
+```
+
+ 
+
+Remover a primeira coluna em pop_ec_ativa que não eram dados
+
+```{r}
+pop_ec_ativa <- pop_ec_ativa[!is.na(pop_ec_ativa$populacao_ativa),]
+```
+
+ 
+
+Multiplicar os dados de população economicamente ativas por 1000000 para
+ser o total de pessoas
+
+```{r}
+pop_ec_ativa$populacao_ativa <- pop_ec_ativa$populacao_ativa*1000000
+```
+
+ 
+
+Criar a Série temporal de taxa de vacância
+
+```{r}
+taxa_vacancia <- ts(Link1_M$vagas_livres/pop_ec_ativa$populacao_ativa, start = c(1991, 1), frequency = 12)
+```
+
+ 
+
+Importar bibliotecas necessárias para fazer os testes de tendência
+
+```{r}
+library("CADFtest") # testes de raiz unitária
+library("sandwich") #Erros padrão HAC
+library("lmtest") #Teste robusto
+library("car") #Teste de restrições lineares
+```
+
+ 
+
+Há evidencia de não estacionariedade na série? de quais tipos?
+justifique
+
+```{r}
+teste_linear = CADFtest(taxa_vacancia, type = "trend", max.lag.y = ceiling(12*(length(taxa_vacancia)/100)^(1/4)),
+                 criterion = "MAIC")
+print(teste_linear)
+```
+
+Como o p-valor é 0.62 \> 0.10 não rejeitamos a hipotese nula de que não
+tem raiz unitária
+
+ 
+
+Testar se tem tendência linear
+
+```{r}
+print(teste_linear$est.model)
+linearHypothesis(teste_linear$est.model,c("trnd = 0", "L(y, 1) = 0" ))
+```
+
+Como o teste F é 1.949 não rejeitamos que o parâmetro beta possa ser 0
+
+ 
+
+Chegando raiz unitária para o modelo com intercepto
+
+```{r}
+teste_intercepto = CADFtest(taxa_vacancia, type = "drift", max.lag.y = ceiling(12*(length(taxa_vacancia)/100)^(1/4)), 
+                 criterion = "MAIC")
+teste_intercepto
+```
+
+Como o p-valor é 0.33 \> 0.10 não rejeitamos a hipotese nula de que não
+tem raiz unitária
+
+ 
+
+Vamos conduzir o teste F para detectar se o modelo de fato apresenta
+intercepto.
+
+```{r}
+print(teste_intercepto$est.model)
+linearHypothesis(teste_intercepto$est.model,c("(Intercept) = 0", "L(y, 1) = 0" ))
+```
+
+Como o teste F é 1.809, não rejeitamos que o parâmetro alpha possa ser 0
+
+ 
+
+O intercepto e o coeficiente associado a $y_{t-1}$ são ambos zero. Nesse
+caso, vamos para o modelo sem componentes determinísticos
+
+```{r}
+teste = CADFtest(taxa_vacancia, type = "none", max.lag.y = ceiling(12*(length(taxa_vacancia)/100)^(1/4)), 
+                 criterion = "MAIC")
+print(teste)
+```
+
+Como o p-valor é 0.52 \> 0.10 não rejeitamos a hipotese nula de que não
+tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
+
+ 
+
+Vamos testar a presença de componentes determinísticos. Como os dados
+apresentam tendência estocástica, trabalhamos com a série diferenciadas
+
+```{r}
+ trend = 1:(length(taxa_vacancia)-1)
+modelo = lm(diff(taxa_vacancia)~trend)
+coeftest(modelo, vcov. = vcovHAC)
+```
+
+Como ambos os p valores são maiores que 0.10, não rejeitamos a hipótese
+nula de que não há tendência linear determinística na série em primeira
+diferença
+
+### Questão 3
+
+**. Construa a medida de desemprego eficiente de Michaillat e Saez
+(2022). Há evidência de não estacionariedade na série? De quais tipos?
+Justifique.**
+
+Como explicado na questão 1 a medida de desemprego eficiente é dada por
+
+:   $$u^* = \sqrt(u \cdot v)$$
+
+Em que $u$ é a taxa de desemprego observada e $v$ é a taxa de vagas
+livres, que são representadas por `pop_ec_ativa$desemprego_obs` e pela
+série temporal, taxa_vacancia, criada na Questão 2, respectivamente.
+Vamos então criar uma uma série temporal com essas duas colunas
+
+```{r}
+taxa_desemprego <- ts(pop_ec_ativa$desemprego_obs, start = c(1991, 1), frequency = 12)
+desemprego_eficiente <- sqrt(taxa_desemprego*taxa_vacancia)
+```
+
+ 
+
+Vamos repetir todo processo da questão 2 para verificar a
+estacionariedade da série
+
+```{r}
+teste_linear = CADFtest(desemprego_eficiente, type = "trend", max.lag.y = ceiling(12*(length(desemprego_eficiente)/100)^(1/4)),
+                 criterion = "MAIC")
+print(teste_linear)
+```
+
+Como o p-valor é 0.48 \> 0.10 não rejeitamos a hipotese nula de que não
+tem raiz unitária
+
+ 
+
+Vamos verificar se tem tendência linear
+
+```{r}
+print(teste_linear$est.model)
+linearHypothesis(teste_linear$est.model,c("trnd = 0", "L(y, 1) = 0" ))
+```
+
+Como o teste F é 2.8861 não rejeitamos que o parâmetro beta possa ser 0
+
+ 
+
+Checando raiz unitária para o modelo com intercepto
+
+```{r}
+teste_intercepto = CADFtest(desemprego_eficiente, type = "drift", max.lag.y = ceiling(12*(length(desemprego_eficiente)/100)^(1/4)), 
+                 criterion = "MAIC")
+print(teste_intercepto)
+```
+
+p-valor é 0.48 \> 0.10 não rejeitamos a hipotese nula de que não tem
+raiz unitária
+
+ 
+
+Vamos conduzir o teste F para detectar se o modelo de fato apresenta
+intercepto.
+
+```{r}
+print(teste_intercepto$est.model)
+linearHypothesis(teste_intercepto$est.model,c("(Intercept) = 0", "L(y, 1) = 0" ))
+```
+
+Como o teste F é 1.2806, não rejeitamos que o parâmetro alpha possa ser
+0
+
+ 
+
+Não rejeitamos que o intercepto e o coeficiente associado a $y_{t-1}$
+são ambos zero. Nesse caso, vamos para o modelo sem componentes
+determinísticos
+
+```{r}
+teste = CADFtest(desemprego_eficiente, type = "none", max.lag.y = ceiling(12*(length(desemprego_eficiente)/100)^(1/4)), 
+                 criterion = "MAIC")
+print(teste)
+```
+
+Como o p-valor é 0.51 \> 0.10 não rejeitamos a hipotese nula de que não
+tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
+
+### Questão 4
+
+### Questão 5
+
+### Questão 6
+
+### Questão 7
