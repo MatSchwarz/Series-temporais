@@ -409,6 +409,10 @@ tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
 
 ### Questão 4
 
+No artigo de Bradley e Kügler, eles descrevem como ocorreram as reformas no mercado de trabalho na Alemanha no início do século XXI. Essas reformas tinham o objetivo principal de diminuir o desemprego na Alemanha e consistiam em quatro leis que foram implementadas anualmente, começando com as duas primeiras em janeiro de 2003. As primeiras leis implementadas em 2003 facilitavam a contratação de trabalhadores temporários. Em 2004, a terceira lei reestruturou a Agência Federal de Emprego para facilitar a alocação de uma pessoa para determinado emprego. Por último, em 2005, a quarta lei implementada penalizava pessoas desempregadas que recusassem o emprego que lhes fosse oferecido, impondo sanções, além de oferecer menos apoio conforme o tempo de desemprego aumentava. Todas essas leis têm em comum o objetivo de diminuir o número de desempregados, tanto por meio de facilitar a contratação, como ocorre nas três primeiras leis, quanto pressionando o cidadão a aceitar um emprego, como é o caso da última.
+
+Em ambos os casos, essas leis impactam diretamente a dinâmica entre a oferta e a demanda de trabalho, neste caso diminuindo o desemprego. Como o índice de desemprego eficiente sugerido por Michaillat e Saez é dado pela raiz do produto entre a taxa de vacância e o número de pessoas desempregadas, é natural esperar que as reformas tenham influência direta sobre a medida de desemprego eficiente.
+
 ### Questão 5
 
 ### Questão 6
