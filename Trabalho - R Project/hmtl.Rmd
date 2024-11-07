@@ -1,6 +1,6 @@
 ---
 title: "Trabalho 1"
-author: 'Maria Rita Xavier Ribeiro (11802158), Matias Schwarz (4763711) '
+author: 'Maria Rita Xavier Ribeiro (11802158), Matias Schwarz (4763711), Marlos S Marques (1421822)'
 date: "2024-10-29"
 output:
   html_document:
