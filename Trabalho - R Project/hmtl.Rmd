@@ -183,9 +183,7 @@ dezembro de 2023
 pop_ec_ativa <- pop_ec_ativa[1:397,]
 ```
 
- 
-
-Mudar os nomes das colunas de interesse para facilitar a manipulação
+Mudar os nomes das colunas de interesse para facilitar a manipulação.
 
 ```{r}
 names(pop_ec_ativa)[names(pop_ec_ativa) == "X13 JDemetra+  Trend...7"] <- "populacao_ativa"
@@ -196,7 +194,7 @@ names(pop_ec_ativa)[names(pop_ec_ativa) == "X13 JDemetra+  Trend...10"] <- "dese
  
 
 Transformar ambas as colunas em que estamos interessados em valores
-numéricos
+numéricos.
 
 ```{r}
 Link1_M$vagas_livres <- as.numeric(Link1_M$vagas_livres)
@@ -204,9 +202,7 @@ pop_ec_ativa$populacao_ativa <- as.numeric(pop_ec_ativa$populacao_ativa)
 pop_ec_ativa$desemprego_obs <- as.numeric(pop_ec_ativa$desemprego_obs)
 ```
 
- 
-
-Remover a primeira coluna em pop_ec_ativa que não eram dados
+Remover a primeira coluna em pop_ec_ativa que não eram dados.
 
 ```{r}
 pop_ec_ativa <- pop_ec_ativa[!is.na(pop_ec_ativa$populacao_ativa),]
@@ -214,22 +210,31 @@ pop_ec_ativa <- pop_ec_ativa[!is.na(pop_ec_ativa$populacao_ativa),]
 
  
 
-Multiplicar os dados de população economicamente ativas por 1000000 para
-ser o total de pessoas
+Multiplicou-se os dados de população economicamente ativas por 1000000 para
+corresponder ao total de pessoas.
 
 ```{r}
 pop_ec_ativa$populacao_ativa <- pop_ec_ativa$populacao_ativa*1000000
 ```
-
- 
-
-Criar a Série temporal de taxa de vacância
+Próximo passo é criar a Série temporal de taxa de vacância desde 1991.
+Antes é necessário ordenar a série de vagas abertas, pois alguns dados estão fora de ordem cronológica.
+A taxa de vacância é esta série dividida pela população economicamente ativa (em forma de porcentagem).
 
 ```{r}
-taxa_vacancia <- ts(Link1_M$vagas_livres/pop_ec_ativa$populacao_ativa, start = c(1991, 1), frequency = 12)
+Link1_M <- Link1_M %>% arrange(TIME_PERIOD)
+taxa_vacancia <- ts(100*Link1_M$vagas_livres/pop_ec_ativa$populacao_ativa, start = c(1991, 1), frequency = 12)
 ```
 
- 
+Plotando a série para observação:
+
+```{r}
+plot(taxa_vacancia, main ="Taxa de Vacância", xlab = "Anos", 
+     ylab = "Porcentagem", col = "blue", lwd = 2, yaxt = "n")
+yticks <- axTicks(2)
+axis(2, at = yticks, labels = paste0(yticks, "%"))
+text(x = 2000, y = 1.6, labels = "Mercado de trabalho alemão")
+text(x = 2000, y = 1.4, labels = "1991-2013")
+```
 
 Importar bibliotecas necessárias para fazer os testes de tendência
 
