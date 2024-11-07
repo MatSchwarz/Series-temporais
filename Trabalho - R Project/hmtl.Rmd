@@ -207,15 +207,17 @@ Remover a primeira coluna em pop_ec_ativa que não eram dados.
 pop_ec_ativa <- pop_ec_ativa[!is.na(pop_ec_ativa$populacao_ativa),]
 ```
 
-Multiplicou-se os dados de população economicamente ativas por 1000000 para
-corresponder ao total de pessoas.
+Multiplicou-se os dados de população economicamente ativas por 1000000
+para corresponder ao total de pessoas.
 
 ```{r}
 pop_ec_ativa$populacao_ativa <- pop_ec_ativa$populacao_ativa*1000000
 ```
+
 Próximo passo é criar a Série temporal de taxa de vacância desde 1991.
-Antes é necessário ordenar a série de vagas abertas, pois alguns dados estão fora de ordem cronológica.
-A taxa de vacância é esta série dividida pela população economicamente ativa (em forma de porcentagem).
+Antes é necessário ordenar a série de vagas abertas, pois alguns dados
+estão fora de ordem cronológica. A taxa de vacância é esta série
+dividida pela população economicamente ativa (em forma de porcentagem).
 
 ```{r}
 Link1_M <- Link1_M %>% arrange(TIME_PERIOD)
@@ -246,8 +248,9 @@ library("car") #Teste de restrições lineares
 Há evidencia de não estacionariedade na série? de quais tipos?
 Justifique.
 
-Vamos utilizar os testes de Dick-Fuller aumentado para verificar a existência de raízes unitárias (não estacionaridade).
-Inicialmente realizamos o teste para o modelo completo (com tendência e intercepto).
+Vamos utilizar os testes de Dick-Fuller aumentado para verificar a
+existência de raízes unitárias (não estacionaridade). Inicialmente
+realizamos o teste para o modelo completo (com tendência e intercepto).
 
 ```{r}
 teste_linear = CADFtest(taxa_vacancia, type = "trend", max.lag.y = ceiling(12*(length(taxa_vacancia)/100)^(1/4)),
@@ -255,8 +258,8 @@ teste_linear = CADFtest(taxa_vacancia, type = "trend", max.lag.y = ceiling(12*(l
 print(teste_linear)
 ```
 
-Como o p-valor é 0.4078 \> 0.10 (10% de significância estipulada) não rejeitamos a hipótese nula de que não
-há raiz unitária.
+Como o p-valor é 0.4078 \> 0.10 (10% de significância estipulada) não
+rejeitamos a hipótese nula de que não há raiz unitária.
 
 Passamos ao teste de tendência linear.
 
@@ -265,9 +268,12 @@ print(teste_linear$est.model)
 linearHypothesis(teste_linear$est.model,c("trnd = 0", "L(y, 1) = 0" ))
 ```
 
-Como o teste F é 2.89, menor que 5,36 (teste F para amostra com 500 dados e nível de significância de 10%) não rejeitamos que os parâmetros associados a raiz e à tendência possam ser 0.
+Como o teste F é 2.89, menor que 5,36 (teste F para amostra com 500
+dados e nível de significância de 10%) não rejeitamos que os parâmetros
+associados a raiz e à tendência possam ser 0.
 
-Checamos então a raiz unitária para o modelo com intercepto e sem tendência.
+Checamos então a raiz unitária para o modelo com intercepto e sem
+tendência.
 
 ```{r}
 teste_intercepto = CADFtest(taxa_vacancia, type = "drift", max.lag.y = ceiling(12*(length(taxa_vacancia)/100)^(1/4)), 
@@ -277,15 +283,17 @@ teste_intercepto
 
 Como o p-valor é 0.7943 \> 0.10 não rejeitamos a hipotese nula. 
 
-Vamos continuar e conduzir o teste F para detectar se o modelo de fato apresenta
-intercepto.
+Vamos continuar e conduzir o teste F para detectar se o modelo de fato
+apresenta intercepto.
 
 ```{r}
 print(teste_intercepto$est.model)
 linearHypothesis(teste_intercepto$est.model,c("(Intercept) = 0", "L(y, 1) = 0" ))
 ```
 
-Como o teste F é 0.9152, menor que 3,79 (teste F para amostra com 500 dados e nível de significância de 10%) não rejeitamos que o parâmetro alpha associado ao intercepto possa ser 0.
+Como o teste F é 0.9152, menor que 3,79 (teste F para amostra com 500
+dados e nível de significância de 10%) não rejeitamos que o parâmetro
+alpha associado ao intercepto possa ser 0.
 
 O intercepto e o coeficiente associado a $y_{t-1}$ são ambos zero. Nesse
 caso, vamos para o modelo sem componentes determinísticos.
@@ -296,12 +304,12 @@ teste = CADFtest(taxa_vacancia, type = "none", max.lag.y = ceiling(12*(length(ta
 print(teste)
 ```
 
-Como o p-valor é 0.8609 \> 0.10 não rejeitamos a hipotese nula de que não
-tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
-
+Como o p-valor é 0.8609 \> 0.10 não rejeitamos a hipotese nula de que
+não tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
 
 Vamos testar a presença de componentes determinísticos. Como os dados
-apresentam tendência estocástica (raiz unitária), trabalharemos com a série diferenciada.
+apresentam tendência estocástica (raiz unitária), trabalharemos com a
+série diferenciada.
 
 Plotando a série em primeira diferença:
 
@@ -309,6 +317,7 @@ Plotando a série em primeira diferença:
 plot(diff(taxa_vacancia), main ="Taxa de Vacância (primeira diferença)", 
      xlab = "Anos", ylab = "Valor", col = "blue", lwd = 1)
 ```
+
 Visualmente parece não haver tendências.
 
 ```{r}
@@ -317,9 +326,11 @@ modelo = lm(diff(taxa_vacancia)~trend)
 coeftest(modelo, vcov. = vcovHAC)
 ```
 
-Como ambos os p valores são maiores que 0.10, não rejeitamos a hipótese
+Fazendo um teste de regresão obtemos p valores altos e estimativas para
+a variável associada à tendência e ao intercepto bem baixas, o que não
+nos leva a concluir muita coisa, mas não podemos rejeitar a hipótese
 nula de que não há tendência linear determinística na série em primeira
-diferença
+diferença.
 
 ### Questão 3
 
@@ -336,14 +347,37 @@ livres, que são representadas por `pop_ec_ativa$desemprego_obs` e pela
 série temporal, taxa_vacancia, criada na Questão 2, respectivamente.
 Vamos então criar uma uma série temporal com essas duas colunas
 
+Criando a série taxa de desemprego eficiente desde 1991.
+
 ```{r}
 taxa_desemprego <- ts(pop_ec_ativa$desemprego_obs, start = c(1991, 1), frequency = 12)
 desemprego_eficiente <- sqrt(taxa_desemprego*taxa_vacancia)
 ```
 
- 
+Plotando a série:
 
-Vamos repetir todo processo da questão 2 para verificar a
+```{r}
+plot(desemprego_eficiente, main ="Taxa de desemprego eficiente", ylim = c(1.8, 3.2),
+     xlab = "Anos", ylab = "Taxa", yaxt = "n", col = "purple", lwd = 2)
+yticks <- axTicks(2)
+axis(2, at = yticks, labels = paste0(yticks, "%"))
+```
+
+Criando a série desempregados e plotando as taxas envolvidas.
+
+```{r}
+desempregados <- ts(pop_ec_ativa$desemprego_obs, start = c(1991, 1), frequency = 12)
+plot(desempregados, main ="Taxas", cex.main = 1, xlab = "Anos", ylim = c(0, 12),ylab = "Porcentagem", col = "red", lwd = 2, yaxt = "n", axes = TRUE)
+yticks <- axTicks(2)
+axis(2, at = yticks, labels = paste0(yticks, "%"))
+lines (taxa_vacancia, col = "blue", lwd = 2)
+lines (desemprego_eficiente, col = "purple", lwd = 2)
+text(x = 2018, y = 5.9, labels = "Taxa de Desemprego")
+text(x = 2000, y = 3.8, labels = "Taxa de Eficiência")
+text(x = 2015, y = 0.4, labels = "Taxa de Vacância")
+```
+
+ Vamos repetir todo processo da questão 2 para verificar a
 estacionariedade da série
 
 ```{r}
@@ -352,21 +386,18 @@ teste_linear = CADFtest(desemprego_eficiente, type = "trend", max.lag.y = ceilin
 print(teste_linear)
 ```
 
-Como o p-valor é 0.48 \> 0.10 não rejeitamos a hipotese nula de que não
+Como o p-valor é 0.227 \> 0.10 não rejeitamos a hipotese nula de que não
 tem raiz unitária
 
- 
-
-Vamos verificar se tem tendência linear
+Vamos verificar se tem tendência linear:
 
 ```{r}
 print(teste_linear$est.model)
 linearHypothesis(teste_linear$est.model,c("trnd = 0", "L(y, 1) = 0" ))
 ```
 
-Como o teste F é 2.8861 não rejeitamos que o parâmetro beta possa ser 0
-
- 
+Como o teste F é 3.9991 \< 5.36 não rejeitamos que o parâmetro beta
+possa ser 0.
 
 Checando raiz unitária para o modelo com intercepto
 
@@ -376,10 +407,8 @@ teste_intercepto = CADFtest(desemprego_eficiente, type = "drift", max.lag.y = ce
 print(teste_intercepto)
 ```
 
-p-valor é 0.48 \> 0.10 não rejeitamos a hipotese nula de que não tem
-raiz unitária
-
- 
+p-valor é 0.1618 \> 0.10 não rejeitamos a hipotese nula de que não tem
+raiz unitária. 
 
 Vamos conduzir o teste F para detectar se o modelo de fato apresenta
 intercepto.
@@ -389,14 +418,12 @@ print(teste_intercepto$est.model)
 linearHypothesis(teste_intercepto$est.model,c("(Intercept) = 0", "L(y, 1) = 0" ))
 ```
 
-Como o teste F é 1.2806, não rejeitamos que o parâmetro alpha possa ser
-0
-
- 
+Como o teste F é 2.7293 \< 3.79, não rejeitamos que o parâmetro alpha
+possa ser 0.
 
 Não rejeitamos que o intercepto e o coeficiente associado a $y_{t-1}$
 são ambos zero. Nesse caso, vamos para o modelo sem componentes
-determinísticos
+determinísticos.
 
 ```{r}
 teste = CADFtest(desemprego_eficiente, type = "none", max.lag.y = ceiling(12*(length(desemprego_eficiente)/100)^(1/4)), 
@@ -404,8 +431,19 @@ teste = CADFtest(desemprego_eficiente, type = "none", max.lag.y = ceiling(12*(le
 print(teste)
 ```
 
-Como o p-valor é 0.51 \> 0.10 não rejeitamos a hipotese nula de que não
-tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
+Como o p-valor é 0.6339 \> 0.10 não rejeitamos a hipotese nula de que
+não tem raiz unitária. Logo, nosso modelo tem uma raiz unitária.
+
+```{r}
+ trend = 1:(length(desemprego_eficiente)-1)
+modelo = lm(diff(desemprego_eficiente)~trend)
+coeftest(modelo, vcov. = vcovHAC)
+```
+
+Fazendo um teste de regresão e novamente obtemos p valores altos e
+estimativas para a variável associada à tendência e ao intercepto bem
+baixas. Não podemos rejeitar a hipótese nula de que não há tendência
+linear determinística na série em primeira diferença.
 
 ### Questão 4
 
