@@ -301,7 +301,15 @@ tem raiz unitária. Logo, nosso modelo tem uma raiz unitária
 
 
 Vamos testar a presença de componentes determinísticos. Como os dados
-apresentam tendência estocástica, trabalhamos com a série diferenciadas
+apresentam tendência estocástica (raiz unitária), trabalharemos com a série diferenciada.
+
+Plotando a série em primeira diferença:
+
+```{r}
+plot(diff(taxa_vacancia), main ="Taxa de Vacância (primeira diferença)", 
+     xlab = "Anos", ylab = "Valor", col = "blue", lwd = 1)
+```
+Visualmente parece não haver tendências.
 
 ```{r}
  trend = 1:(length(taxa_vacancia)-1)
