@@ -514,7 +514,7 @@ pacf(diff(desemprego_eficiente_wd), lag.max = 40, main = "FACP")
 ```
 
 Vamos testar as opções com a função auxiliar "arima.est.parallel" e p
-máximo igual a 4 e q máximo igual a 3.
+máximo igual a 4 e q máximo igual a 3. O fato das séries já possuirem ajuste sazonal na fonte nos assegura buscar um ajuste sem a necessidade de busca por sazonalidade.
 
 ```{r}
 pmax = 4
