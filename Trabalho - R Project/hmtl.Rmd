@@ -243,6 +243,7 @@ library("CADFtest") # testes de raiz unitária
 library("sandwich") #Erros padrão HAC
 library("lmtest") #Teste robusto
 library("car") #Teste de restrições lineares
+library("forecast") #Previsões
 ```
 
 Há evidencia de não estacionariedade na série? de quais tipos?
@@ -447,14 +448,37 @@ linear determinística na série em primeira diferença.
 
 ### Questão 4
 
-No artigo de Bradley e Kügler, eles descrevem como ocorreram as reformas no mercado de trabalho na Alemanha no início do século XXI. Essas reformas tinham o objetivo principal de diminuir o desemprego na Alemanha e consistiam em quatro leis que foram implementadas anualmente, começando com as duas primeiras em janeiro de 2003. As primeiras leis implementadas em 2003 facilitavam a contratação de trabalhadores temporários. Em 2004, a terceira lei reestruturou a Agência Federal de Emprego para facilitar a alocação de uma pessoa para determinado emprego. Por último, em 2005, a quarta lei implementada penalizava pessoas desempregadas que recusassem o emprego que lhes fosse oferecido, impondo sanções, além de oferecer menos apoio conforme o tempo de desemprego aumentava. Todas essas leis têm em comum o objetivo de diminuir o número de desempregados, tanto por meio de facilitar a contratação, como ocorre nas três primeiras leis, quanto pressionando o cidadão a aceitar um emprego, como é o caso da última.
+No artigo de Bradley e Kügler, eles descrevem como ocorreram as reformas
+no mercado de trabalho na Alemanha no início do século XXI. Essas
+reformas tinham o objetivo principal de diminuir o desemprego na
+Alemanha e consistiam em quatro leis que foram implementadas anualmente,
+começando com as duas primeiras em janeiro de 2003. As primeiras leis
+implementadas em 2003 facilitavam a contratação de trabalhadores
+temporários. Em 2004, a terceira lei reestruturou a Agência Federal de
+Emprego para facilitar a alocação de uma pessoa para determinado
+emprego. Por último, em 2005, a quarta lei implementada penalizava
+pessoas desempregadas que recusassem o emprego que lhes fosse oferecido,
+impondo sanções, além de oferecer menos apoio conforme o tempo de
+desemprego aumentava. Todas essas leis têm em comum o objetivo de
+diminuir o número de desempregados, tanto por meio de facilitar a
+contratação, como ocorre nas três primeiras leis, quanto pressionando o
+cidadão a aceitar um emprego, como é o caso da última.
 
-Em ambos os casos, essas leis impactam diretamente a dinâmica entre a oferta e a demanda de trabalho, neste caso diminuindo o desemprego. Como o índice de desemprego eficiente sugerido por Michaillat e Saez é dado pela raiz do produto entre a taxa de vacância e o número de pessoas desempregadas, é natural esperar que as reformas tenham influência direta sobre a medida de desemprego eficiente.
+Em ambos os casos, essas leis impactam diretamente a dinâmica entre a
+oferta e a demanda de trabalho, neste caso diminuindo o desemprego. Como
+o índice de desemprego eficiente sugerido por Michaillat e Saez é dado
+pela raiz do produto entre a taxa de vacância e o número de pessoas
+desempregadas, é natural esperar que as reformas tenham influência
+direta sobre a medida de desemprego eficiente.
 
 ### Questão 5
+
 A questão solicita que se selecione os dados da série construída para a
-taxa de eficiência de desemprego até dezembro de 2002.
-Foi utilizada a função window na série.
+taxa de eficiência de desemprego até dezembro de 2002. Foi utilizada a
+função window na série. A questão pede para aplicarmos o modelo (S)ARIMA
+na série de desemprego, porém como já estamos utilizando a base de dados
+dessazonalizada, a sazonalidade já foi retirada. Portanto, não é
+necessário aplicar o modelo SARIMA, apenas o ARIMA.
 
 ```{r}
 desemprego_eficiente_wd <- window(desemprego_eficiente, end = c(2002, 12))
@@ -475,13 +499,12 @@ yticks <- axTicks(2)
 axis(2, at = yticks, labels = paste0(yticks, "%"))
 ```
 
+Série parece não apresentar componentes determinísticos na primeira
+diferença. Dessa forma, estima-se o ARMA em primeira diferença
+(ARIMA(p,1,q)) sem intercepto ou tendência.
 
-Série parece não apresentar componentes determinísticos na primeira diferença.
-Dessa forma, estima-se o ARMA em primeira diferença (ARIMA(p,1,q)) 
-sem intercepto ou tendência.
-
-Visualização do FAC e FACP para estimar o processo.
-(FAC e FACP do processo estacionarizado na primeira diferença).
+Visualização do FAC e FACP para estimar o processo. (FAC e FACP do
+processo estacionarizado na primeira diferença).
 
 ```{r}
 acf(diff(desemprego_eficiente_wd), lag.max = 40, main = "FAC")
@@ -490,32 +513,33 @@ pacf(diff(desemprego_eficiente_wd), lag.max = 40, main = "FACP")
 # SUGERE AR(4)
 ```
 
-Vamos testar as opções com a função auxiliar "arima.est.parallel" e p máximo igual a 4 e q máximo igual a 3.
+Vamos testar as opções com a função auxiliar "arima.est.parallel" e p
+máximo igual a 4 e q máximo igual a 3.
 
 ```{r}
 pmax = 4
 qmax = 3
 
 # Uso de função auxiliar (inclusão do arquivo box_jenkins_parallel.R)
-source("Box_jenkins/box_jenkins_parallel.R")
+source("box_jenkins_parallel.R")
 tabela = arima.est.parallel(desemprego_eficiente_wd, pmax, qmax, d=1,
           include.constant = F, include.trend = F, signif = 0.05, lags.lbox = c(20,30))
 #Removendo modelos que não convergiram
 tabela = tabela[tabela$Converged,]
 ```
 
-Ordenando a tabela em função dos menores BIC.
+Para fazer a escolha dos parâmetros do modelo ARIMA, vamos ordenar a tabela de acordo com o critério de informação de Akaike (AIC) e de Bayes (BIC).
+A tabela dos conjuntos dos parâmetros em ordem crescente ficará da seguinte maneira:
+![figura em ordem BIC crescente](tabela_ordemBIC.png)
+
+Enquanto que a tabela dos conjuntos dos parâmetros com o AIC em ordem crescente ficará:
+
+![figura em ordem AIC crescente](tabela_ordemAIC.png)
+
+Note que para o critério de informação de Akaike (AIC) o melhor modelo é o ARIMA(3,1,2) e para o critério de informação de Bayes (BIC) o melhor modelo é o ARIMA(0,1,3). Porém para o critério AIC o modelo ARIMA(0,1,3) ainda é o segundo melhor modelo, enquanto que para o critério BIC o modelo ARIMA(3,1,2) é o nono melhor modelo. Além disso, gostariamos que o nosso modelo fosse o mais parcimonioso possível que implica em escolher o modelo com menos parâmetros desnecessário, e note que a segunda defasagem no ARMA(3,1,2) é não significativa. Portanto, escolheremos o modelo ARIMA(0,1,3) como o melhor modelo para a série de desemprego eficiente.
 
 ```{r}
-tabela_ordemBIC <- tabela [order(tabela$BIC, decreasing = FALSE),]
-```
-
-Não há muita diferença entre os modelos, com AIC e BIC bem próximos. Os modelos ARIMA(2,1,2) e ARIMA(4,1,3) parecem mais compatíveis com as análises FAC e FACP.
-
-Após testar os dois, com erros quadráticos médios muito próximos, optamos pelo ARIMA(2,1,2) com valores de estatística t (utilizando o erro-padrão) altos para todos os coeficientes AR e MA.
-
-```{r}
-modelo = Arima(desemprego_eficiente_wd, order =c(2,1,2), include.constant = F, include.drift = F)
+modelo = Arima(desemprego_eficiente_wd, order =c(0,1,3), include.constant = F, include.drift = F)
 summary(modelo)
 ```
 
@@ -523,7 +547,8 @@ summary(modelo)
 checkresiduals(modelo)
 ```
 
-O p-valor alto para o teste de Ljung-Box indica pouca correlação nos erros, o que é desejável.
+O p-valor alto para o teste de Ljung-Box indica pouca correlação nos
+erros, o que é desejável. O histograma dos resíduos não é exatamente uma normal mas se adequa de certa forma, o que também é um bom sinal. 
 
 Tendo como base o modelo ARIMA, podemos testar previsões para a série.
 
@@ -542,13 +567,15 @@ text(x = 2004, y = 2.83, labels = "     Previsão")
 text(x = 2004, y = 2.2, labels = "SÉRIE REAL")
 ```
 
-
-
 ### Questão 6
-Efeitos estimados das reformas de janeiro de 2003 a dezembro de 2006, estimativas pontuais e os intervalos
-de predição dos efeitos.
 
-
+Efeitos estimados das reformas de janeiro de 2003 a dezembro de 2006,
+estimativas pontuais e os intervalos de predição dos efeitos.
 
 ### Questão 7
-Hipóteses de identificação para a validade da abordagem anterior em recuperar os efeitos de interesse Análise de razoabilidade no contexto da reforma e justificativas, preocupações com a identificação e sugestões de modificações da abordagem/métodos alternativos que mitiguem essas preocupações.
+
+Hipóteses de identificação para a validade da abordagem anterior em
+recuperar os efeitos de interesse Análise de razoabilidade no contexto
+da reforma e justificativas, preocupações com a identificação e
+sugestões de modificações da abordagem/métodos alternativos que mitiguem
+essas preocupações.
