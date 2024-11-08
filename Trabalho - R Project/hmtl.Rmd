@@ -615,3 +615,9 @@ recuperar os efeitos de interesse Análise de razoabilidade no contexto
 da reforma e justificativas, preocupações com a identificação e
 sugestões de modificações da abordagem/métodos alternativos que mitiguem
 essas preocupações.
+
+Existem duas hipóteses principais que devem ser satisfeitas para que a abordagem anterior seja válida. A primeira é que o resultado potencial não tratado segue um modelo (S)ARIMA, onde o termo de erro são as inovações.
+
+A segunda é que o termo de inovação $ \epsilon_t $ (ruídos brancos) seja independente de $ T^* $, que é o momento em que a reforma foi realizada. Esta segunda hipótese implica que a decisão sobre quando realizar a reforma depende apenas de informações disponíveis antes da reforma e não de fatores que poderiam prever as inovações futuras da série. Ou seja, a reforma não pode ser feita em resposta a um choque na série que poderia influenciar a série no futuro. Note que, se a tomada de decisão da implementação tivesse sido feita com base no modelo de Box-Jenkins, isso não seria um problema, pois o modelo é feito com base em dados passados e não futuros.
+
+Essas hipóteses não parecem muito razoáveis para o nosso caso. O principal problema está em garantir a segunda hipótese, pois é muito comum que reformas desse tipo sejam implementadas como uma forma de conter algo que se espera que aconteça no futuro e não em resposta a algo que já ocorreu. Antecipações de crises, por exemplo, são muito frequentes. Uma possível forma de mitigar essa preocupação seria não implementar a reforma em algumas regiões com tendências paralelas similares ao restante do país. Em seguida, aplicar o método de Diferenças em Diferenças, comparando o efeito da reforma nas cidades afetadas com o grupo que não foi afetado. Isso poderia ajudar a comparar o efeito que a reforma teve na série com um contrafactual que representaria o cenário em que a reforma não tivesse sido implementada.
