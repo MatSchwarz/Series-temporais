@@ -545,5 +545,10 @@ text(x = 2004, y = 2.2, labels = "SÉRIE REAL")
 
 
 ### Questão 6
+Efeitos estimados das reformas de janeiro de 2003 a dezembro de 2006, estimativas pontuais e os intervalos
+de predição dos efeitos.
+
+
 
 ### Questão 7
+Hipóteses de identificação para a validade da abordagem anterior em recuperar os efeitos de interesse Análise de razoabilidade no contexto da reforma e justificativas, preocupações com a identificação e sugestões de modificações da abordagem/métodos alternativos que mitiguem essas preocupações.
